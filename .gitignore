@@ -1,0 +1,80 @@
+﻿## =========================
+## .NET / Blazor WebAssembly
+## =========================
+
+# Build output
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+[Bb]enchmarkDotNet.Artifacts/
+
+# VS/.NET user files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.rsuser
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+*.DotSettings.user
+
+# VS Code settings
+.vs/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/packages/
+project.lock.json
+project.assets.json
+*.nuget.props
+*.nuget.targets
+
+# Publish output (local)
+publish/
+**/publish/
+
+# Coverage / test
+TestResults/
+*.coverage
+*.coveragexml
+coverage*.json
+.coverage/
+.nCrunch_*/
+*.ncrunchproject
+
+# Temp / cache
+*.tmp
+*.temp
+*.bak
+~$*
+*.swp
+*.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+npm-debug.log*
+yarn.lock
+pnpm-lock.yaml
+
+# GitHub Pages artifacts
+_site/
+
+# PWA/Blazor generated assets
+wwwroot/service-worker-assets.js
+wwwroot/*.gz
+wwwroot/*.br
+
+# EF Core
+Migrations/**/obj/
+Migrations/**/bin/

@@ -1,0 +1,142 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Web
+
+<div class="page-wrap">
+    <h3 class="mb-3">Shopping List</h3>
+
+    <div class="input-bar d-flex gap-2 mb-3">
+        <input class="form-control"
+               placeholder="Add an item…"
+               @bind="newItemName"
+               @bind:event="oninput"
+               @onkeydown="HandleKeyDown" />
+
+        <button class="btn btn-primary"
+                @onclick="AddItem"
+                disabled="@string.IsNullOrWhiteSpace(newItemName)">
+            <i class="bi bi-plus-lg me-1"></i> Add
+        </button>
+    </div>
+
+    @if (items.Count == 0)
+    {
+        <div class="text-muted">Your list is empty. Start by adding an item above.</div>
+    }
+    else
+    {
+        <div class="small text-muted mb-2">
+            @items.Count item@(items.Count == 1 ? "" : "s") • @items.Count(i => !i.IsPickedUp) remaining
+        </div>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-start">Item</th>
+                        <th class="text-start" style="width:1%; white-space:nowrap;">Move</th>
+                        <th class="text-start" style="width:1%; white-space:nowrap;">Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in items)
+                    {
+                        var index = items.IndexOf(item);
+                        <tr class="clickable-row @GetRowClass(item)"
+                            @onclick="() => ToggleItem(item)"
+                            @onkeydown="(e) => OnRowKeyDown(e, item)"
+                            tabindex="0"
+                            role="button"
+                            aria-pressed="@item.IsPickedUp">
+                            <td class="item-name" data-label="Item">
+                                @item.Name
+                            </td>
+
+                            <td data-label="Move">
+                                <div class="actions">
+                                    <button class="btn btn-outline-secondary"
+                                            title="Move up"
+                                            disabled="@(index == 0)"
+                                            @onclick="() => MoveUp(item)"
+                                            @onclick:stopPropagation="true">
+                                        <i class="bi bi-chevron-up"></i>
+                                        <span class="d-none d-md-inline ms-1">Up</span>
+                                    </button>
+                                    <button class="btn btn-outline-secondary"
+                                            title="Move down"
+                                            disabled="@(index == items.Count - 1)"
+                                            @onclick="() => MoveDown(item)"
+                                            @onclick:stopPropagation="true">
+                                        <i class="bi bi-chevron-down"></i>
+                                        <span class="d-none d-md-inline ms-1">Down</span>
+                                    </button>
+                                </div>
+                            </td>
+
+                            <td data-label="Remove">
+                                <div class="actions">
+                                    <button class="btn btn-outline-danger"
+                                            title="Remove"
+                                            @onclick="() => RemoveItem(item)"
+                                            @onclick:stopPropagation="true">
+                                        <i class="bi bi-trash3"></i>
+                                        <span class="d-none d-md-inline ms-1">Remove</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@code {
+    private string? newItemName;
+    private readonly List<ShoppingItem> items = new();
+
+    private void AddItem()
+    {
+        var name = (newItemName ?? string.Empty).Trim();
+        if (string.IsNullOrWhiteSpace(name)) return;
+        items.Add(new ShoppingItem { Name = name });
+        newItemName = string.Empty;
+    }
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key is "Enter") AddItem();
+    }
+
+    // Click-to-toggle
+    private void ToggleItem(ShoppingItem item) => item.IsPickedUp = !item.IsPickedUp;
+
+    // Keyboard accessibility: Enter/Space toggles row
+    private void OnRowKeyDown(KeyboardEventArgs e, ShoppingItem item)
+    {
+        if (e.Key is "Enter" or " " or "Spacebar")
+            ToggleItem(item);
+    }
+
+    private void RemoveItem(ShoppingItem item) => items.Remove(item);
+
+    private void MoveUp(ShoppingItem item)
+    {
+        var i = items.IndexOf(item);
+        if (i > 0) (items[i - 1], items[i]) = (items[i], items[i - 1]);
+    }
+
+    private void MoveDown(ShoppingItem item)
+    {
+        var i = items.IndexOf(item);
+        if (i >= 0 && i < items.Count - 1) (items[i + 1], items[i]) = (items[i], items[i + 1]);
+    }
+
+    private static string GetRowClass(ShoppingItem item) => item.IsPickedUp ? "picked" : string.Empty;
+
+    private sealed class ShoppingItem
+    {
+        public string Name { get; set; } = string.Empty;
+        public bool IsPickedUp { get; set; }
+    }
+}
