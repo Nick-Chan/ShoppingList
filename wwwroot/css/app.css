@@ -1,7 +1,8 @@
+﻿/* ========= Blazor defaults ========= */
 #blazor-error-ui {
     background: #ffffe0;
     bottom: 0;
-    box-shadow: 0 -1px 2px rgba(0,0,0,0.2);
+    box-shadow: 0 -1px 2px rgba(0,0,0,.2);
     display: none;
     left: 0;
     padding: .6rem 1rem .7rem;
@@ -17,8 +18,13 @@
         top: .5rem;
     }
 
+html, body {
+    font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 
-/* ===== Container ===== */
+/* ========= Container ========= */
 .page-wrap {
     max-width: 720px;
     margin: 1rem auto;
@@ -26,149 +32,63 @@
 }
 
 h3.mb-3 {
+    text-align: center;
+    font-size: 1.4rem;
     font-weight: 700;
     letter-spacing: .2px;
 }
 
-/* ===== Input bar card ===== */
+/* ========= Input bar ========= */
 .input-bar {
     background: #fff;
     border: 1px solid rgba(0,0,0,.08);
-    border-radius: 14px;
-    padding: .75rem;
+    border-radius: 16px;
+    overflow: hidden;
+    padding: .5rem .75rem;
     box-shadow: 0 6px 16px rgba(0,0,0,.06);
+    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: auto 1fr 1rem;
+    align-items: center;
+    column-gap: .5rem;
 }
 
     .input-bar .form-control {
+        width: 100%;
+        min-width: 0;
         border: none;
         box-shadow: none !important;
+        background: transparent;
     }
 
-        .input-bar .form-control::placeholder {
-            color: #9aa0a6;
-        }
+.input-lg {
+    font-size: 1.06rem;
+    line-height: 1.4;
+    padding: .55rem .25rem;
+}
 
-    .input-bar .btn-primary {
-        border-radius: 12px;
-        padding: .5rem 1rem;
+.btn-icon {
+    width: 2.6rem;
+    height: 2.6rem;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+}
+
+    .btn-icon i {
+        font-size: 1.1rem;
+        line-height: 1;
     }
 
-/* ===== Mobile-first cards ===== */
+/* ========= Table: single horizontal layout ========= */
 .table {
     width: 100%;
     border-collapse: separate;
-    border-spacing: 0;
+    border-spacing: 0 8px;
+    table-layout: auto;
 }
-
-    .table thead {
-        display: none;
-    }
-
-    .table tbody {
-        display: grid;
-        gap: .75rem;
-    }
-
-        .table tbody tr {
-            display: block;
-            background: #fff;
-            border: 1px solid rgba(0,0,0,.06);
-            border-radius: 14px;
-            box-shadow: 0 6px 16px rgba(0,0,0,.04);
-            padding: .75rem;
-            transition: background-color .15s ease, box-shadow .15s ease, transform .1s ease;
-        }
-
-        .table tbody td {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: .25rem;
-            border: 0;
-            padding: .25rem 0;
-        }
-
-            .table tbody td:first-child {
-                padding-top: 0;
-            }
-
-            .table tbody td:last-child {
-                padding-bottom: 0;
-            }
-
-.clickable-row {
-    cursor: pointer;
-}
-
-.table tbody tr.picked,
-.table tbody tr.picked > td,
-.table tbody tr.picked > th {
-    background-color: #e6ffe6 !important;
-}
-
-tr.picked .item-name {
-    text-decoration: line-through;
-    opacity: .85;
-}
-
-.table [data-label]::before {
-    content: attr(data-label);
-    font-size: .75rem;
-    text-transform: uppercase;
-    letter-spacing: .04em;
-    color: #6b7280;
-}
-
-.item-name {
-    font-weight: 600;
-    font-size: 1rem;
-}
-
-.actions {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: .5rem;
-    margin-top: .25rem;
-}
-
-    .actions .btn {
-        padding: .7rem 1rem;
-        border-radius: 12px;
-        font-weight: 600;
-    }
-
-.table tbody tr:hover {
-    box-shadow: 0 10px 22px rgba(0,0,0,.06);
-    transform: translateY(-1px);
-}
-
-:focus-visible {
-    outline: 3px solid #93c5fd;
-    outline-offset: 3px;
-}
-
-/* ===== Desktop ===== */
-@media (min-width:768px) {
-    .table thead {
-        display: table-header-group;
-    }
-
-    .table tbody {
-        display: table-row-group;
-        gap: 0;
-    }
-
-        .table tbody tr {
-            display: table-row;
-            padding: 0;
-            border-radius: 0;
-            box-shadow: none;
-            transform: none;
-        }
-
-        .table tbody td {
-            display: table-cell;
-            padding: .75rem .75rem;
-        }
 
     .table thead th {
         text-align: left;
@@ -179,33 +99,105 @@ tr.picked .item-name {
         border: 0;
         padding: .25rem .75rem;
         background: #f8fafc;
-        position: sticky;
-        top: 0;
-        z-index: 1;
     }
 
-    .actions {
-        display: inline-grid;
-        grid-auto-flow: column;
-        gap: .5rem;
-        margin: 0;
+    .table tbody tr {
+        background: #fff;
+        border: 1px solid rgba(0,0,0,.06);
+        box-shadow: 0 6px 16px rgba(0,0,0,.04);
+        transition: background-color .15s ease, box-shadow .15s ease, transform .1s ease;
     }
 
-        .actions .btn {
-            padding: .4rem .7rem;
-            border-radius: 10px;
-            font-weight: 500;
+        .table tbody tr:hover {
+            box-shadow: 0 10px 22px rgba(0,0,0,.06);
+            transform: translateY(-1px);
         }
-}
 
-@media (min-width: 768px) {
+    .table tbody td {
+        border: 0;
+        padding: .75rem .75rem;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    .table tbody tr > td:first-child {
+        border-top-left-radius: 12px;
+        border-bottom-left-radius: 12px;
+    }
+
+    .table tbody tr > td:last-child {
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+    }
+
+    /* Remove any mobile "data-label" pseudo text everywhere */
     .table [data-label]::before {
         content: none !important;
         display: none !important;
     }
+
+/* Click-to-toggle cursor */
+.clickable-row {
+    cursor: pointer;
 }
 
-/* ===== Buttons ===== */
+/* Picked state: whole row green (cells included) */
+.table tbody tr.picked,
+.table tbody tr.picked > td,
+.table tbody tr.picked > th {
+    background-color: #e6ffe6 !important;
+}
+
+    .table tbody tr.picked > td,
+    .table tbody tr.picked > th {
+        border-color: #b7efb7 !important;
+    }
+
+tr.picked .item-name {
+    text-decoration: line-through;
+    opacity: .9;
+}
+
+.item-name {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #111827;
+}
+
+/* ========= Actions: always horizontal ========= */
+.actions {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+    white-space: nowrap;
+}
+
+    .actions .btn {
+        width: auto;
+        min-width: 2.4rem;
+        padding: .4rem .6rem;
+        border-radius: 10px;
+        font-weight: 500;
+    }
+
+/* Icon-only button sizing */
+.btn-icon {
+    width: 2.4rem;
+    height: 2.4rem;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
+
+    .btn-icon i {
+        font-size: 1.1rem;
+        line-height: 1;
+    }
+
+/* ========= Button tones ========= */
 .btn-outline-secondary {
     border-color: #d1d5db;
 }
@@ -224,7 +216,13 @@ tr.picked .item-name {
         border-color: #fca5a5;
     }
 
-/* ===== Empty state ===== */
+/* ========= Accessibility ========= */
+:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 3px;
+}
+
+/* ========= Empty state ========= */
 .text-muted {
     background: #f8fafc;
     border: 1px dashed #e5e7eb;
@@ -232,7 +230,7 @@ tr.picked .item-name {
     padding: .85rem 1rem;
 }
 
-/* ===== Dark mode ===== */
+/* ========= Dark mode ========= */
 @media (prefers-color-scheme: dark) {
     body {
         background: #0b1220;
@@ -249,8 +247,15 @@ tr.picked .item-name {
         color: #9aa4b2;
     }
 
-    tr.picked {
-        background-color: #123d12;
+    .item-name {
+        color: #e5e7eb;
+    }
+
+    .table tbody tr.picked,
+    .table tbody tr.picked > td,
+    .table tbody tr.picked > th {
+        background-color: #123d12 !important;
+        border-color: #1c5a1c !important;
     }
 
     .text-muted {
